@@ -63,7 +63,7 @@ func (m *ManagerUser) getUserList() []User {
 /*********
 * VARIABLES
 *********/
-var strage = Store{Path: "static/db.json", DefaultValue: `[]`}
+var storage = Store{Path: "static/db.json", DefaultValue: `[]`}
 
 /*********
 * FUNCTIONS
@@ -78,7 +78,7 @@ func GenerateID() uint32 {
 
 // AddUser add user data to db
 func AddUser(name string, age byte) {
-	m := ManagerUser{store: strage}
+	m := ManagerUser{store: storage}
 
 	list := m.getUserList()
 	list = append(list, User{ID: GenerateID(), Name: name, Age: age})
@@ -88,7 +88,7 @@ func AddUser(name string, age byte) {
 
 // PrintList show all user data
 func PrintList() {
-	m := ManagerUser{store: strage}
+	m := ManagerUser{store: storage}
 	byt := m.getDataAsBytes(m.getUserList())
 
 	fmt.Println(string(byt))
