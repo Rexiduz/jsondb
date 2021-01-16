@@ -27,7 +27,7 @@ type ManagerUser struct {
 * METHODS
 *********/
 
-func (m *ManagerUser) getDataAsBytes(list []User) []byte {
+func (m ManagerUser) getDataAsBytes(list []User) []byte {
 	byt, err := json.MarshalIndent(list, "", "    ")
 
 	if err != nil {
@@ -38,12 +38,12 @@ func (m *ManagerUser) getDataAsBytes(list []User) []byte {
 	return byt
 }
 
-func (m *ManagerUser) updateUserList(list []User) {
+func (m ManagerUser) updateUserList(list []User) {
 	byt := m.getDataAsBytes(list)
 	m.store.Write(byt)
 }
 
-func (m *ManagerUser) getUserList() []User {
+func (m ManagerUser) getUserList() []User {
 	byt, err := m.store.Read()
 	if err != nil {
 		byt = []byte(m.store.DefaultValue)
@@ -69,7 +69,7 @@ var storage = Store{Path: "static/db.json", DefaultValue: `[]`}
 * FUNCTIONS
 *********/
 
-// GenerateID random unit64
+// GenerateID random unit32
 func GenerateID() uint32 {
 	buf := make([]byte, 8)
 	rand.Read(buf) // Always succeeds, no need to check error
